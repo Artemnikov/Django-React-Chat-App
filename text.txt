@@ -1,0 +1,20 @@
+room : {
+    session: {
+        session_id: 'someid'
+        users: [
+            {
+                id:1,
+                name: 'artem'
+            }
+        ]
+    },
+    name: "room",
+    id: 1,
+    messages : [
+        {
+            id: 1,
+            name: "admin",
+            value: "wat"
+        }
+    ] 
+}
