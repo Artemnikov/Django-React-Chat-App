@@ -47,5 +47,4 @@ def send(request):
 
     new_message = Message.objects.create(value=message, user=user, room=room)
     new_message.save()
-    print(new_message.values())
     return HttpResponse(new_message)

@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 export const Message = ({messages}) => {
 
-    console.log(messages)
+    // console.log(messages)
 
   return (
     <>
