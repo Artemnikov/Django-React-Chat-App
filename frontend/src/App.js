@@ -4,6 +4,8 @@ import {Route, Routes} from 'react-router-dom'
 import { Room } from './components/room/Room'
 import { Home } from './components/Home'
 
+// use context
+
 export const App = () => {
   return (
     <Routes>
