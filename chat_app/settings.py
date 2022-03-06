@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
+    'drf_msal_jwt',
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,6 +43,17 @@ INSTALLED_APPS = [
     'server',
     'frontend'
 ]
+
+DEFAULTS = {
+    'MSAL_CLIENT_ID': "7b78849d-d724-4820-9041-a8cdbb854c0f",
+    'MSAL_CLIENT_SECRET': "eKK7Q~vBY0chGf1Yx~xX7EbkQctKHxL9wv6az",
+    'MSAL_REDIRECT_URL': "http://localhost:5000/getAToken",
+    'MSAL_AUTHORITY_URL': 'https://login.microsoftonline.com/common/',
+    'MSAL_SCOPES': [],
+    'MSAL_USER_HANDLER': 'django.contrib.auth.models.User',
+    'MSAL_ALLOW_DOMAINS': ['*'],
+    'MSAL_CHECK_STATE': True
+}
 
 ASGI_APPLICATION = 'chat_app.asgi.application'
 

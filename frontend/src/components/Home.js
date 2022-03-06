@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
 
+import style from './home.module.css'
+
 export const Home = () => {
   
   const headers = {"X-CSRFTOKEN": "nosniff"};
@@ -18,12 +20,15 @@ export const Home = () => {
   }
 
   return (
-    <form>
-      <label htmlFor='room_name'> Room Name </label>
-      <input type='text' id='room_name' placeholder='Room Name' />
-      <label htmlFor='user_name'> User Name </label>
-      <input type='text' id='user_name' placeholder='Name`' />
-      <input onClick={enterRoom} type='submit' />
-    </form>
+    <>
+      <form className={style.container}>
+        <label htmlFor='room_name'> Room Name </label>
+        <input type='text' id='room_name' placeholder='Room Name' />
+        <label htmlFor='user_name'> User Name </label>
+        <input type='text' id='user_name' placeholder='Name`' />
+        <input onClick={enterRoom} type='submit' />
+      </form>
+      
+    </>
   )
 }

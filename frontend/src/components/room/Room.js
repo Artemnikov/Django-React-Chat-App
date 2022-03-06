@@ -3,6 +3,8 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Message } from './Message'
 
+import style from './Room.module.css'
+
 const url = `ws://${window.location.host}/ws/socket-server/`
 const socket = new WebSocket(url)
 
@@ -60,7 +62,7 @@ export const Room = () => {
   
 
   return (
-    <>
+    <section className={style.container}>
       <Link to='/'> Home </Link>
       <h1> {roomName} </h1>
       <form>
@@ -68,7 +70,7 @@ export const Room = () => {
         <button onClick={send} type="submit">Send</button>
       </form>
       {messages.length > 0 ? (<Message messages={messages} />) : (<h1>No messages</h1>)}
-    </>
+    </section>
   )
 }
 

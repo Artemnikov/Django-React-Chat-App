@@ -8,9 +8,10 @@ import { Home } from './components/Home'
 
 export const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={ <Home /> }></Route>
-      <Route path="/room" element={ <Room /> }></Route>
-    </Routes>
+    <a href="http://localhost:8000/server/signin">Sign in</a>
+    // <Routes>
+    //   <Route path="/" element={ <Home /> }></Route>
+    //   <Route path="/room" element={ <Room /> }></Route>
+    // </Routes>
   )
 }
