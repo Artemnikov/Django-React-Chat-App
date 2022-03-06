@@ -5,5 +5,3 @@ scopes:
     - user.read   
     - mailboxsettings.read   
     - calendars.readwrite authority: "https://login.microsoftonline.com/3962bc1f-9d4f-4f6f-b8d1-bec4d2371748"
-
-    https://login.live.com/oauth20_authorize.srf?client_id=3962bc1f-9d4f-4f6f-b8d1-bec4d2371748&scope=offline_access+openid+profile&redirect_uri=http%3a%2f%2flocalhost%3a8000%2fcallback&response_type=code&state=uZpJfbihPRBKyXdn&nonce=c8bf1b305039e066c4e4d0be314125bc468b9349338f9aa85b737f930a517065&code_challenge=kHoBYHhkOlHiVFhk7kA8qjJCQG2CtDdUG2fnNrnScnA&code_challenge_method=S256&uaid=202fd6b0ea3448c0bc7e930df44013a4&msproxy=1&issuer=mso&tenant=common&ui_locales=en&client_info=1
