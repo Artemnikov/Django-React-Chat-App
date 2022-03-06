@@ -18,3 +18,4 @@ room : {
         }
     ] 
 }
+change the manifest signInAudience to 

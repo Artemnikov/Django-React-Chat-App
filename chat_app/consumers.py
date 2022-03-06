@@ -14,7 +14,6 @@ class ChatConsumer(WebsocketConsumer):
         self.accept()
     
     def receive(self, text_data):
-        print(text_data)
         # send the recieved data to the db model
         text_data_json = json.loads(text_data)
         message = text_data_json['message']

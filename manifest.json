@@ -1,0 +1,78 @@
+{
+	"id": "084dcb68-5b3a-44f9-beb6-2accfde4f8cd",
+	"acceptMappedClaims": null,
+	"accessTokenAcceptedVersion": null,
+	"addIns": [],
+	"allowPublicClient": true,
+	"appId": "300579e3-4a79-4fd2-8f09-60ed83326dd6",
+	"appRoles": [],
+	"oauth2AllowUrlPathMatching": false,
+	"createdDateTime": "2022-03-06T08:52:31Z",
+	"description": null,
+	"certification": null,
+	"disabledByMicrosoftStatus": null,
+	"groupMembershipClaims": null,
+	"identifierUris": [],
+	"informationalUrls": {
+		"termsOfService": null,
+		"support": null,
+		"privacy": null,
+		"marketing": null
+	},
+	"keyCredentials": [],
+	"knownClientApplications": [],
+	"logoUrl": null,
+	"logoutUrl": null,
+	"name": "DjangoAppSSO",
+	"notes": null,
+	"oauth2AllowIdTokenImplicitFlow": true,
+	"oauth2AllowImplicitFlow": true,
+	"oauth2Permissions": [],
+	"oauth2RequirePostResponse": false,
+	"optionalClaims": null,
+	"orgRestrictions": [],
+	"parentalControlSettings": {
+		"countriesBlockedForMinors": [],
+		"legalAgeGroupRule": "Allow"
+	},
+	"passwordCredentials": [
+		{
+			"customKeyIdentifier": null,
+			"endDate": "2022-06-06T09:13:52.958Z",
+			"keyId": "9c5840ad-4edd-4cf1-8ec2-a6a4badafe00",
+			"startDate": "2022-03-06T10:13:52.958Z",
+			"value": null,
+			"createdOn": "2022-03-06T10:14:05.8108164Z",
+			"hint": "kWe",
+			"displayName": "auth_ley_2"
+		}
+	],
+	"preAuthorizedApplications": [],
+	"publisherDomain": "sartemmeshkovgmail.onmicrosoft.com",
+	"replyUrlsWithType": [
+		{
+			"url": "http://localhost:8000/callback",
+			"type": "Web"
+		},
+		{
+			"url": "http://localhost:8000/server/callback",
+			"type": "Web"
+		}
+	],
+	"requiredResourceAccess": [
+		{
+			"resourceAppId": "00000003-0000-0000-c000-000000000000",
+			"resourceAccess": [
+				{
+					"id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+					"type": "Scope"
+				}
+			]
+		}
+	],
+	"samlMetadataUrl": null,
+	"signInUrl": null,
+	"signInAudience": "AzureADMyOrg",
+	"tags": [],
+	"tokenEncryptionKeyId": null
+}

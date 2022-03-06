@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .models import Room, Message
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+from django.views.decorators.cache import never_cache
 from django.urls import reverse
 from chat_app.auth_helper import get_sign_in_flow, get_token_from_code, store_user, remove_user_and_token, get_token
 from chat_app.graph_helper import *
@@ -78,13 +78,17 @@ def sign_in(request):
 def sign_out(request):
     # Clear out the user and token
     remove_user_and_token(request)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect(reverse(''))
 
+
+@never_cache
 def callback(request):
     # Make the token request
     result = get_token_from_code(request)
-    #Get the user's profile from graph_helper.py script
-    user = get_user(result['access_token']) 
+    #Get the user's profile from graph_helper.py script]
+    user = get_user(result['access_token'])
     # Store user from auth_helper.py script
+    username = result.get('name')
     store_user(request, user)
-    return HttpResponseRedirect(reverse('home'))
+    return HttpResponseRedirect('/lobby/?name={}', format(username))
+
