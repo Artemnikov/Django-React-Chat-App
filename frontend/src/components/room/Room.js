@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import { Message } from './Message'
-
 import style from './Room.module.css'
 
 const url = `ws://${window.location.host}/ws/socket-server/`
 const socket = new WebSocket(url)
-
 
 export const Room = () => {
   
@@ -21,14 +18,16 @@ export const Room = () => {
     let data = queryString.split('&')
     data = {
       room: data[0].split('=')[1],
-      username: data[1].split('=')[1]
+      username: data[1].split('=')[1].replace('_', ' ')
     }
 
     setusername(data.username)
     setRoomName(data.room)
     
     axios.post('/server/getMessages/', data)
-    .then(res => setMessages(res.data.messages) )
+    .then(res => {
+      setMessages(res.data.messages) 
+    })
   }, [])
 
   useEffect( () => {
@@ -39,11 +38,12 @@ export const Room = () => {
         setMessages(messages => [...messages, data]) // react update ...?
       }
     }
+
+    axios.post('/server/token/', Headers={"username": "admin", "password": "admin"})
+    .then(res => console.log(res)) 
+
   }, [])
 
-
-  // problem is that onmessage is running nth ammount of times
-  // it needs to run only one time on server send
 
   const send = async (e) => {
     e.preventDefault()
@@ -63,13 +63,12 @@ export const Room = () => {
 
   return (
     <section className={style.container}>
-      <Link to='/'> Home </Link>
       <h1> {roomName} </h1>
       <form>
         <input type="text" id='text' placeholder="message" />
         <button onClick={send} type="submit">Send</button>
       </form>
-      {messages.length > 0 ? (<Message messages={messages} />) : (<h1>No messages</h1>)}
+      {messages ? (<Message messages={messages} />) : (<h1>No messages</h1>)}
     </section>
   )
 }

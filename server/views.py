@@ -4,7 +4,6 @@ from .models import Room, Message
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.views.decorators.cache import never_cache
-from django.urls import reverse
 from chat_app.auth_helper import get_sign_in_flow, get_token_from_code, store_user, remove_user_and_token, get_token
 from chat_app.graph_helper import *
 
@@ -41,7 +40,9 @@ def getMessages(request):
     room_req = json.loads(request.body).get('room')
     room_detail = Room.objects.get(name=room_req)
     messages = Message.objects.filter(room=room_detail.name)
+    print(messages)
     return JsonResponse({"messages" : list(messages.values())})
+    
 
 @csrf_exempt
 def send(request):
@@ -86,9 +87,11 @@ def callback(request):
     # Make the token request
     result = get_token_from_code(request)
     #Get the user's profile from graph_helper.py script]
-    user = get_user(result['access_token'])
-    # Store user from auth_helper.py script
-    username = result.get('name')
-    store_user(request, user)
-    return HttpResponseRedirect('/lobby/?name={}', format(username))
+    # user = get_user(result['access_token'])
+    username = result['id_token_claims']['name']
+    username = username.replace(' ', '_')
+    return HttpResponseRedirect('/lobby/?name={}'.format(username))
 
+#  get jwt from azure sso
+# get public key from azure sso
+#  bearer token
