@@ -13,6 +13,7 @@
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "axios": "^0.26.0",
     "react-router-dom": "^6.2.1",
+    "react-secure-route": "0.0.2",
     "socket.io": "^4.4.1"
   },
   "devDependencies": {

@@ -16,15 +16,14 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data):
         # send the recieved data to the db model
         text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-        username = text_data_json['username']
+        print(text_data_json.get('room'))
 
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type':'chat_message',
-                'user': username,
-                'message':message
+                'user': text_data_json.get('username'),
+                'message':text_data_json.get('message')
             }
         )
     

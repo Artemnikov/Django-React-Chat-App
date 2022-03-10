@@ -2,7 +2,12 @@ import yaml
 import msal
 import os
 import time
+import jwt
+from rest_framework_simplejwt.backends import TokenBackend
+from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer
 
+
+from chat_app.settings import SIMPLE_JWT
 # Load the oauth_settings.yml file located in your app DIR
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
@@ -85,9 +90,17 @@ def get_token(request):
 
     return result['access_token']
 
-def remove_user_and_token(request):
+def remove_user_and_token ( request ):
   if 'token_cache' in request.session:
     del request.session['token_cache']
 
   if 'user' in request.session:
     del request.session['user']
+  print(request.session)
+  
+def checkJWT(token):
+  
+  # data = {'token': token}
+  # valid_data = VerifyJSONWebTokenSerializer().validate(data)
+  # user = valid_data['user']
+  return 'serializer.validated_data'

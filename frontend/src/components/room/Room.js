@@ -1,7 +1,11 @@
 import React, {useEffect, useState} from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Message } from './Message'
 import style from './Room.module.css'
+import { getCookie } from '../../functions/cookies'
+
+import { verifyJWT, createJWT } from '../../functions/checkjwt'
 
 const url = `ws://${window.location.host}/ws/socket-server/`
 const socket = new WebSocket(url)
@@ -9,63 +13,55 @@ const socket = new WebSocket(url)
 export const Room = () => {
   
   const [ messages, setMessages ] = useState([]) 
-  const [ roomName, setRoomName ] = useState('')
-  const [ username, setusername ] = useState('')
+  const [ roomData, setRoomData ] = useState({})
   
   useEffect( () => {
-
-    const queryString = window.location.search;
-    let data = queryString.split('&')
-    data = {
-      room: data[0].split('=')[1],
-      username: data[1].split('=')[1].replace('_', ' ')
-    }
-
-    setusername(data.username)
-    setRoomName(data.room)
-    
-    axios.post('/server/getMessages/', data)
-    .then(res => {
-      setMessages(res.data.messages) 
-    })
-  }, [])
-
-  useEffect( () => {
-    socket.onmessage = (e) => {
-      let data = JSON.parse(e.data)
-      console.log(data)
-      if(data.type == 'chat') {
-        setMessages(messages => [...messages, data]) // react update ...?
-      }
-    }
-
-    axios.post('/server/token/', Headers={"username": "admin", "password": "admin"})
-    .then(res => console.log(res)) 
-
-  }, [])
-
-
-  const send = async (e) => {
-    e.preventDefault()
     const data = {
-      room: roomName,
-      username: username,
-      message: e.target.parentElement.text.value
+      room: getCookie('room_name'),
+      username: getCookie('username')
     }
+    setRoomData(data)
 
-    socket.send(JSON.stringify(data))
-    axios.post('/server/send/', data)
-    e.target.parentElement.text.value = ''
+    try {
+      axios.post('/server/checkroom', data)
+      axios.post('/server/getMessages/', data)
+      .then(res => {
+        setMessages(res.data.messages)
+      })
+
+      socket.onmessage = (e) => {
+        let data = JSON.parse(e.data)
+        if(data.type == 'chat') {
+          setMessages(messages => [...messages, data]) // react update ...?
+        }
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }, [])
+
+
+  const send = (e) => {
+    e.preventDefault()
+    let sent = {
+      room: roomData.room,
+      username: roomData.username,
+      message: room_message.value,
+      token: getCookie('jwt')
+    }
+    socket.send(JSON.stringify(sent))
+    axios.post('/server/send', sent)
+    room_message.value = ''
   }
-
-
-  
 
   return (
     <section className={style.container}>
-      <h1> {roomName} </h1>
+      <Link to='/lobby'> 
+        <button>  back </button>
+      </Link>
+      <h1> {roomData.room} </h1>
       <form>
-        <input type="text" id='text' placeholder="message" />
+        <input type="text" id='room_message' placeholder="message" />
         <button onClick={send} type="submit">Send</button>
       </form>
       {messages ? (<Message messages={messages} />) : (<h1>No messages</h1>)}

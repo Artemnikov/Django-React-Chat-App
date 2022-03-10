@@ -1,40 +1,47 @@
-import React, {useEffect, useState} from 'react'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
+import React, {useEffect, useState, useContext} from 'react'
+import { Link, Navigate  } from 'react-router-dom'
 import style from './lobby.module.css'
+import axios from 'axios'
+import { setCookie, getCookie } from '../../functions/cookies'
+import { createJWT, verifyJWT } from '../../functions/checkjwt'
 
 export const Lobby = () => {
 
   const [ username, setusername ] = useState('')
 
   useEffect( () => {
-    const queryString = window.location.search;
-    setusername(queryString.split('=')[1])
+    // createJWT()
+    setusername(getCookie('username').replace('"', '').replace('"', ''))
   }, [])
 
-  const enterRoom = (e) => {
-    e.preventDefault()
-    const formData = {
-      room: room_name.value,
-      username: username
-    }
-
-    axios.post('http://localhost:8000/server/checkroom/', JSON.stringify(formData))
-      .then(data => 
-        window.location.href = `http://localhost:8000/room/?room=${data.data.room}&name=${data.data.username}`)
+  const saveRoomNameToCookie = () => {
+    setCookie('room_name', room_name.value, 1)
   }
 
+  const logout = () => {
+    setCookie('username', '', 1)
+    setCookie('jwt', '', 1)
+    setCookie('room_name', '', 1)
+    axios.get('/server/signout')
+  }
 
   return (
-    <>
+    <div>
+        <Link
+         to='/'
+         onClick={logout}
+         > Log Out </Link>
         <form  className={style.container}>
-        <Link to='/'> Home </Link>
         <label htmlFor='room_name'> Room Name </label>
         <input type='text' id='room_name' placeholder='Room Name' required />
         <label htmlFor='user_name'> User Name </label>
-        <input type='text' id='user_name' placeholder='Name' value={username.replace('_', ' ')} />
-        <input onClick={enterRoom} type='submit' />
+        <input type='text' id='user_name' placeholder='Name' value={username} />
+        <Link
+          to='/room'
+          onClick={ e => saveRoomNameToCookie(e)}
+          > <button> Enter Room </button>
+        </Link>
       </form>
-    </>
+    </div>
   )
 }

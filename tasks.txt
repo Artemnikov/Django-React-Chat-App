@@ -1,0 +1,6 @@
+1- make a axios instance that sends the jwt token - done
+2- vailidate the jwt token to vailidate. 
+    - first. after logging in with microsoft. Dont save the user data as a cookie
+    - then after vailidation complete. generate a jwt token and send it as a cookie to the user
+    - to vailidate the jwt is correct. on each action of the user send the jwt token for vailidation
+    - if the jwt was tempred. close the connection and kick the user to the home page.
