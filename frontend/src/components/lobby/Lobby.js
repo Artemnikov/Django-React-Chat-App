@@ -11,6 +11,9 @@ export const Lobby = () => {
 
   useEffect( () => {
     // createJWT()
+    axios.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', 
+      {"client_id": "b9f8f8f8-f8f8-f8f8-f8f8-f8f8f8f8f8f8"} 
+    ).then( res => console.log(res) )
     setusername(getCookie('username').replace('"', '').replace('"', ''))
   }, [])
 

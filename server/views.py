@@ -75,7 +75,6 @@ def callback ( request ):
     # Make the token request
     result = get_token_from_code(request)
     #Get the user's profile from graph_helper.py script]
-    print(result)
     username = result['id_token_claims']['name']
     client_id = result['id_token_claims']['sub']
     user = get_user(result['access_token'])
