@@ -6,7 +6,6 @@ import json
 from django.views.decorators.cache import never_cache
 from chat_app.auth_helper import get_sign_in_flow, get_token_from_code, remove_user_and_token, get_token
 from chat_app.graph_helper import get_user
-from rest_framework_jwt.views import obtain_jwt_token
 
 
 @csrf_exempt
