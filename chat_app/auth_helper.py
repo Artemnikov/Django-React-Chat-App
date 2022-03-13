@@ -4,7 +4,6 @@ import os
 import time
 
 
-from chat_app.settings import SIMPLE_JWT
 # Load the oauth_settings.yml file located in your app DIR
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
