@@ -17,6 +17,8 @@ distlib
 Django
 django-filter
 drf-msal-jwt
+django-jwt-auth
+djangorestframework
 filelock
 hyperlink
 idna
