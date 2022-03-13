@@ -1,7 +1,5 @@
 from django.urls import path
 from . import views
-from rest_framework_jwt.views import verify_jwt_token, obtain_jwt_token
-
 
 urlpatterns = [
     path('checkroom', views.checkroom),
@@ -11,5 +9,5 @@ urlpatterns = [
     path('signout', views.sign_out, name='signout'),
     path('getAToken', views.callback, name='callback'),
     # path('getJWT', obtain_jwt_token, name='getJWT'),
-    path('checkJWT', verify_jwt_token )
+    # path('checkJWT', verify_jwt_token )
 ]

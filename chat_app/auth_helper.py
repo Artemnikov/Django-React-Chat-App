@@ -2,9 +2,6 @@ import yaml
 import msal
 import os
 import time
-import jwt
-from rest_framework_simplejwt.backends import TokenBackend
-from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer
 
 
 from chat_app.settings import SIMPLE_JWT
