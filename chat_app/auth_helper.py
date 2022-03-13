@@ -51,8 +51,10 @@ def get_sign_in_flow():
     redirect_uri=settings['redirect'])
 
 # Method to exchange auth code for access token
+
 def get_token_from_code(request):
   cache = load_cache(request)
+  print('cache is : {}'.format(cache))
   auth_app = get_msal_app(cache)
 
   # Get the flow saved in session
@@ -75,6 +77,7 @@ def store_user(request, user):
     print(e)
 
 def get_token(request):
+  # print('request is : {}'.format(request))
   cache = load_cache(request)
   auth_app = get_msal_app(cache)
 
@@ -93,7 +96,6 @@ def remove_user_and_token ( request ):
 
   if 'user' in request.session:
     del request.session['user']
-  print(request.session)
   
 def checkJWT(token):
   
