@@ -28,7 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0:8000',
-    '192.168.33.210:8000/'
+    '0.0.0.0',
+    '192.168.33.210:8000',
+    '192.168.33.210'
+    
 ]
 
 
@@ -103,8 +106,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'chat_app.urls'
-
-BACKEND = 'django.core.cache.backends.memcached.PyMemcacheCache'
 
 TEMPLATES = [
     {
