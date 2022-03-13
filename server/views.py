@@ -3,10 +3,11 @@ from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .models import Room, Message
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.views.decorators.cache import never_cache
+from django.views.decorators.cache import never_cache, cache_control
 from chat_app.auth_helper import get_sign_in_flow, get_token_from_code, remove_user_and_token, get_token
 from chat_app.graph_helper import get_user
 
+from django.core.cache import cache
 
 @csrf_exempt
 def checkroom ( request ):
@@ -73,11 +74,16 @@ def sign_out ( request ):
 def callback ( request ):
     # Make the token request
     result = get_token_from_code(request)
+    
     #Get the user's profile from graph_helper.py script]
     username = result['id_token_claims']['name']
     client_id = result['id_token_claims']['sub']
     user = get_user(result['access_token'])
     response = HttpResponseRedirect('/lobby')
     response.set_cookie('username', username)
-    # response.set_cookie('wat', obtain_jwt_token("username=jwt&password=jwtadmin") )
+    
+    m_cache = cache.All()[1]
+    m_cache.set("stack","overflow",3000)
+    print(m_cache)
+    
     return response

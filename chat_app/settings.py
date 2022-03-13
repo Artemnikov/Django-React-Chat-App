@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-!vgr=kd-19g&85$_=r4geiyzg2#dmyh3*d!(te%sw94k&z5^6p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0:8000',!~
+    '192.168.33.210:8000/'
+]
 
 
 # Application definition
@@ -44,6 +47,13 @@ INSTALLED_APPS = [
     'server',
     'frontend'
 ]
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': 'unix:/tmp/memcached.sock',
+    }
+}
 
 DEFAULTS = {
     'MSAL_CLIENT_ID': "7b78849d-d724-4820-9041-a8cdbb854c0f",
@@ -93,6 +103,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'chat_app.urls'
+
+BACKEND = 'django.core.cache.backends.memcached.PyMemcacheCache'
 
 TEMPLATES = [
     {
