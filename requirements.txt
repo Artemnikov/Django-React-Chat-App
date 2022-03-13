@@ -16,7 +16,6 @@ daphne
 distlib
 Django
 django-filter
-drf-msal-jwt
 django-jwt-auth
 djangorestframework
 filelock
@@ -28,10 +27,12 @@ Jinja2
 Markdown
 MarkupSafe
 msal
+drf-msal-jwt
 platformdirs
 pyasn1
 pyasn1-modules
 pycparser
+PyJWT
 pyOpenSSL
 python-dateutil
 pytz
@@ -43,4 +44,6 @@ typing_extensions
 tzdata
 urllib3
 Werkzeug
+service-identity
+six
 zope.interface
