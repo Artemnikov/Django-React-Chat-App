@@ -3,11 +3,7 @@ import msal
 import os
 import time
 
-<<<<<<< HEAD
  
-=======
-
->>>>>>> 2d4930a25af326eafa31406ab434183ba7d6e8e1
 # Load the oauth_settings.yml file located in your app DIR
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
