@@ -1,1 +1,3 @@
-/frontend/node_modules
+./frontend/node_modules
+./frontend/static/frontend/main.js
+./frontend/static/frontend/main.js.LICENSE.txt
