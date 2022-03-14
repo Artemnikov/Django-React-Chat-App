@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import style from './Home.module.css'
+import style from './home.module.css'
 
 export const Home = () => {
 
