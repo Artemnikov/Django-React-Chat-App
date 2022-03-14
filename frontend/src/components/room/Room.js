@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Message } from './Message'
-import style from './Room.module.css'
+import style from './room.module.css'
 import { getCookie } from '../../functions/cookies'
 
 import { verifyJWT, createJWT } from '../../functions/checkjwt'
