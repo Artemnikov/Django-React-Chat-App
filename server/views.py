@@ -72,7 +72,7 @@ def sign_out ( request ):
 # @never_cache
 def callback ( request ):
     result = get_token_from_code(request)
-    username = result['id_toke`n_claims']['name']
+    username = result['id_token_claims']['name']
     response = HttpResponseRedirect('/lobby')
     response.set_cookie('username', username)
     validate(result['id_token'])
