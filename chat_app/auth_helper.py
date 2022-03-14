@@ -91,14 +91,14 @@ def get_token(request):
 def remove_user_and_token ( request ):
   if 'token_cache' in request.session:
     del request.session['token_cache']
-
   if 'user' in request.session:
     del request.session['user']
   
 def validate ( token ):
+  # decode the token
+  print(jwt.decode(token))
   try:
     keys = requests.get('https://login.microsoftonline.com/common/discovery/v2.0/keys')
-    print(keys.json())
     jwt.decode(token, verify=False)
     return True
   except Exception as e :

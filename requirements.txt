@@ -49,3 +49,4 @@ six
 zope.interface
 pymemcache
 mysqlclient
+djangorestframework-jwt
