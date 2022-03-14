@@ -8,6 +8,4 @@ urlpatterns = [
     path('signin', views.sign_in, name='signin'),
     path('signout', views.sign_out, name='signout'),
     path('getAToken', views.callback, name='callback'),
-    # path('getJWT', obtain_jwt_token, name='getJWT'),
-    # path('checkJWT', verify_jwt_token )
 ]
