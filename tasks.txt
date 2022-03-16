@@ -1,2 +1,0 @@
-1 - vailidate the user.
-2 - translate the database to mysql

@@ -75,6 +75,6 @@ def callback ( request ):
     username = result['id_token_claims']['name']
     response = HttpResponseRedirect('/lobby')
     response.set_cookie('username', username)
-    validate(result['id_token'])
+    validate(result.get('id_token'))
     
     return response
