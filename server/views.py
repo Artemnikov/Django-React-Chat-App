@@ -53,16 +53,27 @@ def initialize_context ( request ):
     context['user'] = request.session.get('user' , {'is_authenticated': False})
     return context
 
-def sign_in ( request ):
+def sign_in(request):
     # Get the sign-in flow
     flow = get_sign_in_flow()
     # Save the expected flow so we can use it in the callback
-    try:
-        request.session['auth_flow'] = flow
-    except Exception as e:
-        print(e)
+    # try:
+    #     request.session['auth_flow'] = flow
+    # except Exception as e:
+    #     print(e)
     # Redirect to the Azure sign-in page
     return HttpResponseRedirect(flow['auth_uri'])
+
+# def sign_in ( request ):
+#     # Get the sign-in flow
+#     flow = get_sign_in_flow()
+#     # Save the expected flow so we can use it in the callback
+#     try:
+#         request.session['auth_flow'] = flow
+#     except Exception as e:
+#         print(e)
+#     # Redirect to the Azure sign-in page
+#     return HttpResponseRedirect(flow['auth_uri'])
 
 def sign_out ( request ):
     remove_user_and_token(request)
