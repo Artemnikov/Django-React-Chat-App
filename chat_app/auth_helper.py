@@ -36,12 +36,22 @@ def save_cache(request, cache):
   if cache.has_state_changed:
     request.session['token_cache'] = cache.serialize()
 
-def get_msal_app(cache=None):
+# def get_msal_app(cache=None):
   # Initialize the MSAL confidential client
-  auth_app = msal.ConfidentialClientApplication(
+  # auth_app = msal.ConfidentialClientApplication(
+  #   settings['app_id'],
+  #   authority = 'https://login.microsoftonline.com/common',
+  #   client_credential = settings['app_secret'],
+  #   token_cache = cache)
+  # return auth_app
+
+
+def get_msal_app ( cache=None ):
+  # Initialize the MSAL confidential client
+  auth_app = msal.ConfidentialClientApplication (
     '300579e3-4a79-4fd2-8f09-60ed83326dd6',
     'kWe7Q~YiJxe0QOjZ-K.3hDUDfutYmzSucU1TA',
-    authority="https://login.microsoftonline.com/common",
+    authority = "https://login.microsoftonline.com/common",
     validate_authority=True,
     token_cache=False,
     http_client=None,
@@ -59,7 +69,7 @@ def get_msal_app(cache=None):
   return auth_app
 
 # Method to generate a sign-in flow
-def get_sign_in_flow():
+def get_sign_in_flow () :
   auth_app = get_msal_app()
   return auth_app.initiate_auth_code_flow(
     settings['scopes'],
