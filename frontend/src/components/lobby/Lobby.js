@@ -3,18 +3,14 @@ import { Link, Navigate  } from 'react-router-dom'
 import style from './lobby.module.css'
 import axios from 'axios'
 import { setCookie, getCookie } from '../../functions/cookies'
-import { createJWT, verifyJWT } from '../../functions/checkjwt'
 
 export const Lobby = () => {
 
   const [ username, setusername ] = useState('')
 
-  useEffect( () => {
-    // createJWT()
-    axios.post('https://login.microsoftonline.com/common/oauth2/v2.0/token', 
-      {"client_id": "b9f8f8f8-f8f8-f8f8-f8f8-f8f8f8f8f8f8"} 
-    ).then( res => console.log(res) )
-    setusername(getCookie('username').replace('"', '').replace('"', ''))
+  useEffect( async () => {
+      const username1 = getCookie('username').replace('"', '').replace('"', '')
+      setusername( username1 )
   }, [])
 
   const saveRoomNameToCookie = () => {
@@ -34,11 +30,10 @@ export const Lobby = () => {
          to='/'
          onClick={logout}
          > Log Out </Link>
+        <h1> {username} </h1>
         <form  className={style.container}>
         <label htmlFor='room_name'> Room Name </label>
         <input type='text' id='room_name' placeholder='Room Name' required />
-        <label htmlFor='user_name'> User Name </label>
-        <input type='text' id='user_name' placeholder='Name' value={username} />
         <Link
           to='/room'
           onClick={ e => saveRoomNameToCookie(e)}

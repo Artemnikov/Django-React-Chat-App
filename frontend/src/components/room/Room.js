@@ -5,8 +5,6 @@ import { Message } from './Message'
 import style from './room.module.css'
 import { getCookie } from '../../functions/cookies'
 
-import { verifyJWT, createJWT } from '../../functions/checkjwt'
-
 const url = `ws://${window.location.host}/ws/socket-server/`
 const socket = new WebSocket(url)
 
@@ -59,7 +57,9 @@ export const Room = () => {
       <Link to='/lobby'> 
         <button>  back </button>
       </Link>
+      
       <h1> {roomData.room} </h1>
+
       <form>
         <input type="text" id='room_message' placeholder="message" />
         <button onClick={send} type="submit">Send</button>
