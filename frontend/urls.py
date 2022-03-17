@@ -6,4 +6,5 @@ urlpatterns = [
     path('lobby', views.index, name='room'),
     path('room', views.index, name='room'),
     path('send/', views.index),
+    path('proccess/', views.index),
 ]

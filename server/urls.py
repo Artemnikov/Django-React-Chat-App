@@ -7,5 +7,6 @@ urlpatterns = [
     path('send', views.send),
     path('signin', views.sign_in, name='signin'),
     path('signout', views.sign_out, name='signout'),
-    path('getAToken', views.callback, name='callback'),
+    path('getAToken/', views.callback, name='callback'),
+    path('verifyjwt', views.validate, name='validate'),
 ]

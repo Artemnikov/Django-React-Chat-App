@@ -2,24 +2,9 @@ import yaml
 import msal
 import os
 import time
-import jwt
-
-from base64 import b64decode
-from cryptography import x509
-from cryptography.hazmat.backends import default_backend
-from cryptography.hazmat.primitives import serialization
-
 
 import requests
 from rest_framework_jwt.utils import jwt_decode_handler
-options = {
-    'clockTolerance': 60*24*10,
-    "audience": "300579e3-4a79-4fd2-8f09-60ed83326dd6",
-    "issuer": "",
-    "verify_signature": "RS256"
-};
-kid = ''
-x5c = ''
 
 stream = open('oauth_settings.yml', 'r')
 settings = yaml.load(stream, yaml.SafeLoader)
@@ -35,16 +20,6 @@ def save_cache(request, cache):
   # If cache has changed, persist back to session
   if cache.has_state_changed:
     request.session['token_cache'] = cache.serialize()
-
-# def get_msal_app(cache=None):
-  # Initialize the MSAL confidential client
-  # auth_app = msal.ConfidentialClientApplication(
-  #   settings['app_id'],
-  #   authority = 'https://login.microsoftonline.com/common',
-  #   client_credential = settings['app_secret'],
-  #   token_cache = cache)
-  # return auth_app
-
 
 def get_msal_app ( cache=None ):
   # Initialize the MSAL confidential client
@@ -111,21 +86,3 @@ def remove_user_and_token ( request ):
   if 'user' in request.session:
     del request.session['user']
   
-def validate ( token ):
-  headers = jwt.get_unverified_header(token)
-  kid = headers.get('kid')
-  keys = requests.get('https://login.microsoftonline.com/common/discovery/v2.0/keys')
-  keyList = keys.json().get('keys')
-  for x in keyList:
-    if x.get('kid') == kid:
-      x5c = b64decode(x.get('x5c')[0])
-      options['issuer'] = x.get('issuer')
-  try:
-    cert = x509.load_der_x509_certificate(x5c, default_backend())
-    public_key = cert.public_key()  
-    pem_key = public_key.public_bytes(encoding=serialization.Encoding.PEM, format=serialization.PublicFormat.SubjectPublicKeyInfo)
-    verified = jwt.decode(token, pem_key, options)
-  except Exception as e:
-    print('error: {}'.format(e))
-  return True
-    
