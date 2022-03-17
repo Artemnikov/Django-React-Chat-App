@@ -49,31 +49,22 @@ def save_cache(request, cache):
 def get_msal_app ( cache=None ):
   # Initialize the MSAL confidential client
   auth_app = msal.ConfidentialClientApplication (
-    '300579e3-4a79-4fd2-8f09-60ed83326dd6',
-    'kWe7Q~YiJxe0QOjZ-K.3hDUDfutYmzSucU1TA',
+    settings['app_id'],
+    client_credential = settings['app_secret'],
+    # '300579e3-4a79-4fd2-8f09-60ed83326dd6',
+    # 'kWe7Q~YiJxe0QOjZ-K.3hDUDfutYmzSucU1TA',
     authority = "https://login.microsoftonline.com/common",
-    validate_authority=True,
-    token_cache=False,
-    http_client=None,
-    verify=True,
-    proxies=None,
-    timeout=None,
-    client_claims=None,
-    app_name=None,
-    app_version=None,
-    client_capabilities=None,
-    azure_region=None,
-    exclude_scopes=None,
-    http_cache=None
+    token_cache = cache
   )
   return auth_app
 
 # Method to generate a sign-in flow
 def get_sign_in_flow () :
   auth_app = get_msal_app()
-  return auth_app.initiate_auth_code_flow(
-    settings['scopes'],
-    redirect_uri=settings['redirect'])
+  return auth_app.initiate_auth_code_flow (
+    [],
+    redirect_uri = settings['redirect'],
+  )
 
 # Method to exchange auth code for access token
 
@@ -135,6 +126,6 @@ def validate ( token ):
     pem_key = public_key.public_bytes(encoding=serialization.Encoding.PEM, format=serialization.PublicFormat.SubjectPublicKeyInfo)
     verified = jwt.decode(token, pem_key, options)
   except Exception as e:
-    print(e)
+    print('error: {}'.format(e))
   return True
     

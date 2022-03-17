@@ -1,7 +1,10 @@
 app_id: "300579e3-4a79-4fd2-8f09-60ed83326dd6"
 app_secret: "cGr7Q~2.qrIYO4EOBSG_H.VHmZFRVXcJ~gJle" 
 redirect: "http://localhost:8000/server/getAToken"
+authority: "https://login.microsoftonline.com/common"
 scopes:
     - user.read   
-    - mailboxsettings.read   z
-    - calendars.readwrite authority: "https://login.microsoftonline.com/300579e3-4a79-4fd2-8f09-60ed83326dd6"
+    - mailboxsettings.read
+    - calendars.readwrite
+    - authority
+    - "https://login.microsoftonline.com/common"
