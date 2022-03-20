@@ -14,6 +14,9 @@ export const Lobby = () => {
   }, [])
 
   const saveRoomNameToCookie = () => {
+    const jwt = getCookie('jwt')
+    axios.post('/server/verifyjwt' , JSON.stringify({token: jwt}))
+    .then(res => console.log(res.data))
     setCookie('room_name', room_name.value, 1)
   }
 

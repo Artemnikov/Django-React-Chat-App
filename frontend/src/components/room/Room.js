@@ -12,7 +12,7 @@ export const Room = () => {
   
   const [ messages, setMessages ] = useState([]) 
   const [ roomData, setRoomData ] = useState({})
-  
+
   useEffect( () => {
     const data = {
       room: getCookie('room_name'),
@@ -40,16 +40,18 @@ export const Room = () => {
 
 
   const send = (e) => {
+    const jwt = getCookie('jwt')
     e.preventDefault()
     let sent = {
       room: roomData.room,
-      username: roomData.username,
+      // username: roomData.username,
       message: room_message.value,
-      token: getCookie('jwt')
+      token: jwt
     }
     socket.send(JSON.stringify(sent))
     axios.post('/server/send', sent)
-    room_message.value = ''
+    .then(res => 
+      res.data == 'jwt not found' ? window.location.href = '/' : room_message.value = '')
   }
 
   return (

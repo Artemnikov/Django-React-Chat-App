@@ -49,11 +49,18 @@ def getMessages ( request ):
 
 @csrf_exempt
 def send ( request ):
+    isValid = json.loads(request.body).get('token')
+    print(isValid)
+    if isValid == 'not found':
+        return HttpResponse('jwt not found')
+    isValid = validate(isValid)
+    if not isValid:
+        return isValid
     new_message = Message.objects.create(
         value = json.loads(request.body).get('message'),
-        user = json.loads(request.body).get('username'),
+        # user = json.loads(request.body).get('username'),
         room = json.loads(request.body).get('room')
-        )
+    )
     new_message.save()
     return HttpResponse('message saved')
 
@@ -99,7 +106,7 @@ def callback ( request ):
     result = get_token_from_code(request)
     
     response = HttpResponseRedirect('/lobby')
-    validate(result.get('id_token'))
+    isValid = validate(result.get('id_token'))
     username = result['id_token_claims']['name']
     response.set_cookie('username', result['id_token_claims']['name'])
     response.set_cookie('jwt', result['id_token'])
@@ -119,7 +126,16 @@ def validate ( token ):
     public_key = cert.public_key() 
     pem_key = public_key.public_bytes(encoding=serialization.Encoding.PEM, format=serialization.PublicFormat.SubjectPublicKeyInfo)
     verified = jwt.decode(token, pem_key, audience = "300579e3-4a79-4fd2-8f09-60ed83326dd6")
-    return HttpResponse('verified')
+    return True
   except Exception as e:
-    print('error: {}'.format(e))
+    print(e)
     return HttpResponseRedirect('')
+
+def vailidateAPI ( request ):
+    isValid = json.loads(request.body).get('token')
+    print(isValid)
+    if isValid == 'not found':
+        return HttpResponse('jwt not found')
+    isValid = validate(isValid)
+    if not isValid:
+        return isValid
