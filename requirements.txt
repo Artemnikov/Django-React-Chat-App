@@ -33,7 +33,7 @@ typing-extensions
 tzdata
 urllib3
 six
-msalpymemcache
+# msalpymemcache
 mysqlclient
 djangorestframework-jwt
 Automat
